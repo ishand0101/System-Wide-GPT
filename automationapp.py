@@ -10,9 +10,11 @@ openai.api_key = ""
 @app.route('/generate-emojis/<prompt>', methods=['GET'])
 def generate_emojis(prompt):
     decoded_prompt = unquote(prompt)
-    input_text = decoded_prompt + "                                                                                  I need 2 emoji's that describe this text and would work well at the end. The return output should be the text and the two emojis:"
+    input_text = decoded_prompt + "                                                                                  I need 2 emoji's that describe this text and would work well at the end. The return output should be the text(unchanged and unformatted) and the two emojis:"
     response = openai.Completion.create(
-        engine="text-davinci-003", prompt=input_text, max_tokens=1024,    
+        engine="text-davinci-003", 
+        prompt=input_text, 
+        max_tokens=1024,    
     )
     return_response = response.choices[0].text.strip()
     return return_response  
@@ -21,7 +23,9 @@ def generate_emojis(prompt):
 def generate_text(prompt):
     decoded_prompt = unquote(prompt)
     response = openai.Completion.create(
-        engine="text-davinci-003", prompt="You are a prompt answerer. You take whatever prompt I give, and give the best answer that fits the main idea and this is the prompt:" + decoded_prompt, max_tokens=1024,
+        engine="text-davinci-003", 
+        prompt="You are a prompt answerer. You take whatever prompt I give, and give the best answer that fits the main idea and this is the prompt:" + decoded_prompt,
+        max_tokens=1024,
     )
     return_response = response.choices[0].text.strip()
     return return_response
@@ -30,7 +34,9 @@ def generate_text(prompt):
 def generate_query_response(prompt):
     decoded_prompt = unquote(prompt)
     response = openai.Completion.create(
-        engine="text-davinci-003", prompt=decoded_prompt, max_tokens=1024,
+        engine="text-davinci-003", 
+        prompt=decoded_prompt, 
+        max_tokens=1024,
     )
     return_response = response.choices[0].text.strip()
     return return_response
